@@ -6,6 +6,12 @@ Class {
 }
 
 { #category : 'tests' }
+MyKingTest >> testId [
+
+	self assert: MyKing new id equals: 'K'
+]
+
+{ #category : 'tests' }
 MyKingTest >> testIsCheckByOpponentsRook [
 
 	| king board |
@@ -29,4 +35,30 @@ MyKingTest >> testIsNotCheckBySameColorRook [
 	board at: 'e1' put: MyRook white.
 
 	self deny: king isInCheck
+]
+
+{ #category : 'tests' }
+MyKingTest >> testIsPiece [ 
+	| kingPiece |
+	
+   kingPiece := MyKing new.
+	self assert: (kingPiece isPiece).
+]
+
+{ #category : 'tests' }
+MyKingTest >> testMovesWithSameColorObstacle [
+    | king squares board |
+    board := MyChessBoard empty.
+    board at: 'e4' put: (king := MyKing white).
+
+    "King cannot move onto squares occupied by same-color pieces"
+    board at: 'e5' put: MyRook white.
+
+    squares := king targetSquares.
+    self
+        assertCollection: squares
+        includesAll:
+            (#( d5 f5 d4 f4 d3 e3 f3 ) collect: [ :name |
+                    board at: name ]).
+    self deny: (squares includes: (board at: 'e5')).
 ]

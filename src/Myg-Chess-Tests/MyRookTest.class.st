@@ -1,18 +1,26 @@
 Class {
-	#name : 'MyRookTests',
+	#name : 'MyRookTest',
 	#superclass : 'TestCase',
 	#category : 'Myg-Chess-Tests',
 	#package : 'Myg-Chess-Tests'
 }
 
 { #category : 'tests' }
-MyRookTests >> testId [
+MyRookTest >> testId [
 
 	self assert: MyRook new id equals: 'R'
 ]
 
 { #category : 'tests' }
-MyRookTests >> testMoves [
+MyRookTest >> testIsPiece [ 
+	| rookPiece |
+	
+   rookPiece := MyRook new.
+	self assert: (rookPiece isPiece).
+]
+
+{ #category : 'tests' }
+MyRookTest >> testMoves [
 
 	| rook squares board |
 	board := MyChessBoard empty.
@@ -27,7 +35,7 @@ MyRookTests >> testMoves [
 ]
 
 { #category : 'tests' }
-MyRookTests >> testMovesWithOponentObstacle [
+MyRookTest >> testMovesWithOponentObstacle [
 
 	| bishop squares board |
 	board := MyChessBoard empty.
@@ -47,7 +55,7 @@ MyRookTests >> testMovesWithOponentObstacle [
 ]
 
 { #category : 'tests' }
-MyRookTests >> testMovesWithSameColorObstacle [
+MyRookTest >> testMovesWithSameColorObstacle [
 
 	| bishop squares board |
 	board := MyChessBoard empty.
