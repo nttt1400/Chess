@@ -168,7 +168,7 @@ MyFENParser >> parseSquare [
 
 	^ {
 		  (self parseAnyOf: ($a to: $h)).
-		  (self parseAnyOf: (3 to: 6)) }
+		  (self parseAnyOf: ($1 to: $8)) }
 ]
 
 { #category : 'parsing' }
