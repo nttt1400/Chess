@@ -68,7 +68,6 @@ MyPlayer >> play [
 		          ifTrue: [ OrderedCollection with: self king ]
 		          ifFalse: [ self pieces copy asOrderedCollection ].
 
-
 	[ pieces notEmpty ] whileTrue: [
 		| piece legalMoves |
 		piece := pieces atRandom.
@@ -78,7 +77,8 @@ MyPlayer >> play [
 			game move: piece to: legalMoves atRandom.
 			^ self ] ].
 
-	self halt: 'NO MOVES AVAILABLE!'
+	"No legal move available. The game should stop gracefully instead of halting the image."
+	^ self
 ]
 
 { #category : 'constants' }
