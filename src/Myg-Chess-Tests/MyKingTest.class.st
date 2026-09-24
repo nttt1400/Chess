@@ -46,6 +46,17 @@ MyKingTest >> testIsPiece [
 ]
 
 { #category : 'tests' }
+MyKingTest >> testKingCanCaptureUnprotectedEnemyPiece [
+
+	| king board |
+	board := MyChessBoard empty.
+	board at: 'e4' put: (king := MyKing white).
+	board at: 'e5' put: MyRook black.
+
+	self assert: (king targetSquares includes: (board at: 'e5'))
+]
+
+{ #category : 'tests' }
 MyKingTest >> testMovesWithSameColorObstacle [
     | king squares board |
     board := MyChessBoard empty.

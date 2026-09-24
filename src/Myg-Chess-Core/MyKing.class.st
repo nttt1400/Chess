@@ -91,7 +91,5 @@ MyKing >> targetSquaresLegal: aBoolean [
 			  (threatenedSquares includes: s) not and: [
 				  s hasPiece not or: [ 
 					"The square has an opponent piece"
-					s contents color ~= color and: [ 
-						"Let's hope the piece is not defended"
-						threatenedSquares includes: s  ] ] ] ] ]
+					s contents color ~= color ] ] ] ]
 ]
