@@ -127,9 +127,15 @@ MyChessSquare >> file [
 { #category : 'accessing' }
 MyChessSquare >> foreground [
 			
-	^ color isBlack
-		ifTrue: [ board blackColor ]
-		ifFalse: [ board whiteColor ]
+		^ contents
+		ifNil: [
+			color isBlack
+				ifTrue: [ board blackColor ]
+				ifFalse: [ board whiteColor ] ]
+		ifNotNil: [
+			contents isWhite
+				ifTrue: [ board whiteColor ]
+				ifFalse: [ board blackColor ] ]
 ]
 
 { #category : 'testing' }
