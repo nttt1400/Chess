@@ -23,9 +23,19 @@ MyPawn >> renderPieceOn: aSquare [
 { #category : 'rendering' }
 MyPawn >> targetSquaresLegal: aBoolean [
 
-	^ (self isWhite
-		   ifTrue: [ { square up } ]
-		   ifFalse: [ { square down } ]) select: [ :s |
-		  s notNil and: [
-			  s hasPiece not or: [ s contents color ~= color ] ] ]
+	| forward captures |
+	forward := self isWhite
+		ifTrue: [ { square up } ]
+		ifFalse: [ { square down } ].
+	forward ifNil: [ ^ #() ].
+
+	captures := {
+		forward left.
+		forward right }
+		select: [ :target |
+			target notNil and: [
+				target hasPiece and: [ target contents color ~= color ] ] ].
+
+	forward hasPiece ifTrue: [ ^ captures ].
+	^ { forward }, captures
 ]
