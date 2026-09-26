@@ -66,3 +66,15 @@ MyPawnTest >> testPawnCannotCaptureSameColorOrEmptyDiagonal [
 	self deny: (pawn targetSquares includes: (board at: 'f5')).
 	self assert: pawn targetSquares equals: { board at: 'e5' }
 ]
+
+{ #category : 'tests' }
+MyPawnTest >> testPawnCannotExposeItsKingToCheck [
+
+	| board pawn |
+	board := MyChessBoard empty.
+	board at: 'e1' put: MyKing white.
+	board at: 'e2' put: (pawn := MyPawn white).
+	board at: 'e8' put: MyRook black.
+
+	self deny: (pawn legalTargetSquares includes: (board at: 'e3'))
+]
