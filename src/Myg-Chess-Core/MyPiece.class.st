@@ -31,7 +31,7 @@ MyPiece class >> white [
 { #category : 'as yet unclassified' }
 MyPiece >> attackingSquares [
 
-	^ self legalTargetSquares
+	^ self targetSquares
 ]
 
 { #category : 'path commands' }
@@ -161,7 +161,37 @@ MyPiece >> leftFileLegal: aBoolean [
 { #category : 'path commands' }
 MyPiece >> legalTargetSquares [
 
-	^ self targetSquaresLegal: true
+	| board king |
+	board := self board.
+	king := board pieces detect: [ :piece |
+		piece notNil and: [ piece isKing and: [ piece color = color ] ] ]
+		ifNone: [ nil ].
+
+	king ifNil: [ ^ self targetSquares ].
+	^ self targetSquares reject: [ :target |
+		self wouldLeaveKingInCheckAfterMovingTo: target ]
+]
+
+{ #category : 'path commands' }
+MyPiece >> wouldLeaveKingInCheckAfterMovingTo: target [
+
+	| origin captured king leavesKingInCheck |
+	origin := square.
+	captured := target contents.
+
+	origin contents: nil.
+	target contents: self.
+	square := target.
+	king := board pieces detect: [ :piece |
+		piece notNil and: [ piece isKing and: [ piece color = color ] ] ]
+		ifNone: [ nil ].
+	leavesKingInCheck := king notNil and: [ king isInCheck ].
+
+	target contents: captured.
+	origin contents: self.
+	square := origin.
+
+	^ leavesKingInCheck
 ]
 
 { #category : 'path commands' }
