@@ -57,6 +57,30 @@ MyKingTest >> testKingCanCaptureUnprotectedEnemyPiece [
 ]
 
 { #category : 'tests' }
+MyKingTest >> testKingCannotMoveIntoRookAttack [
+
+	| king board |
+	board := MyChessBoard empty.
+	board at: 'e1' put: (king := MyKing white).
+	board at: 'e8' put: MyRook black.
+
+	self deny: (king legalTargetSquares includes: (board at: 'e2'))
+]
+
+{ #category : 'tests' }
+MyKingTest >> testPinnedPieceCannotExposeKing [
+
+	| board rook |
+	board := MyChessBoard empty.
+	board at: 'e1' put: MyKing white.
+	board at: 'e2' put: (rook := MyRook white).
+	board at: 'e8' put: MyRook black.
+
+	self deny: (rook legalTargetSquares includes: (board at: 'd2')).
+	self assert: (rook legalTargetSquares includes: (board at: 'e3'))
+]
+
+{ #category : 'tests' }
 MyKingTest >> testMovesWithSameColorObstacle [
     | king squares board |
     board := MyChessBoard empty.
