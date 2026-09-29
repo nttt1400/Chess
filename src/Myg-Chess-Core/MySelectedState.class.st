@@ -36,8 +36,9 @@ MySelectedState >> clickOn: aMyChessSquare [
 
 	selection unselect.
 	selection contents ifNotNil: [
-		board unhighLightTargets: selection contents targetSquares.
-		board game move: selection contents to: aMyChessSquare ].
+		board unhighLightTargets: selection contents legalTargetSquares.
+		(selection contents legalTargetSquares includes: aMyChessSquare)
+			ifTrue: [ board game move: selection contents to: aMyChessSquare ] ].
 
 	^ MyUnselectedState board: board
 ]
