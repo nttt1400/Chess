@@ -38,8 +38,8 @@ MyPawn >> targetSquaresLegal: aBoolean [
 
 	| forward captures |
 	forward := self isWhite
-		ifTrue: [ { square up } ]
-		ifFalse: [ { square down } ].
+		ifTrue: [ square up ]
+		ifFalse: [ square down ].
 	forward ifNil: [ ^ #() ].
 
 	captures := {
