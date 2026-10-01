@@ -50,7 +50,7 @@ MyPiece >> collectSquares: aBlock [
 MyPiece >> collectSquares: aBlock legal: shouldBeLegal [
 
 	^ self collectSquares: aBlock while: [ :aSquare |
-		  aSquare notNil and: [ shouldBeLegal ==> aSquare hasPiece not ] ]
+		  aSquare notNil and: [ aSquare hasPiece not ] ]
 ]
 
 { #category : 'rendering' }
@@ -175,7 +175,8 @@ MyPiece >> legalTargetSquares [
 { #category : 'path commands' }
 MyPiece >> wouldLeaveKingInCheckAfterMovingTo: target [
 
-	| origin captured king leavesKingInCheck |
+	| origin captured board king leavesKingInCheck |
+	board := self board.
 	origin := square.
 	captured := target contents.
 
